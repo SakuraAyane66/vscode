@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>组建的细节</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <script src="js/vue.js"></script>
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+    <div id="root">
+      <!-- 为了给组件尝试注释了
+          <div ref="hello" @click="handleclick">
+         hello world
+      </div> -->
+      <counter ref="one" @change="handleChange"></counter>
+      <counter ref="two" @change="handleChange"></counter>
+      <div>{{total}}</div>
+    </div>
+  </body>
+</html>
+<script>
+    Vue.component("counter",{
+        data:function(){
+            return {
+                number:0
+            }
+        },
+        template:"<div @click='handleClick'>{{number}}</div>",
+        methods:{
+            handleClick:function(){
+                this.number++
+                this.$emit("change")
+            }
+        }
+    })
+  var vm = new Vue({
+    el: "#root",
+    data: function () {
+      return {
+          total:0
+      };
+    },
+    methods:{
+        handleChange:function(){
+            //alert("change");
+            this.total=this.$refs.one.number+this.$refs.two.number
+            /* console.log(this.$refs.one.number);
+            console.log(this.$refs.two.number); */
+        }
+    }
+    /*为了试之后的组件ref注释了
+     methods:{
+        handleclick:function(){
+            //alert("click");
+            //this.$refs.ref 在所有的refs中找到ref（需要的）
+             console.log(this.$refs.hello.innerHTML);
+        }
+    } */
+
+  });
+</script>
