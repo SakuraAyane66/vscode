@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <script src="js/vue.js"></script>
+    <title>父子组件传值</title>
+</head>
+<body>
+    <div id="root">
+        <counter :count="0" @inc="increase"></counter>
+        <counter :count="1" @inc="increase"></counter>
+        <div>{{total}}</div>
+    </div>
+</body>
+</html>
+<script>
+    var counter={
+        props:['count'],
+        data:function(){
+            return {
+                number:this.count
+                //子组件不能改变父组件传递的值，通过拷贝改变新的值
+            }
+        },
+        methods:{
+            handleClick:function(){
+                this.number++;
+                this.$emit('inc',1)
+                //通过函数内$emit向父组件传值
+            }
+        },
+        template:'<div @click="handleClick">{{number}}</div>'
+    }
+    var vm=new Vue({
+        el:'#root',
+        data:{
+            total:0
+        },
+        methods:{
+            increase:function(res){
+                this.total+=res;
+                console.log(res);
+            }
+        },
+        components:{
+            counter:counter
+        }
+    })
+</script>
