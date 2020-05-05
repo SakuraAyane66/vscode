@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>组件参数校验与非props特性</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/vue.js"></script>
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <div id="root">
+            <child  content="sakura" :number="222"></child>
+        </div>
+        
+        <script src="" async defer></script>
+    </body>
+</html>
+<!--props特性，组件中props内有与属性中有对应的东西，比如有属性content，props内有接受的content，在子组件中就能通过{{content}}直接调用-->
+<!--非props特性，子组件props中没有对应内容，第一个特点，子组件中不能用content。第二个特点：会展示在div外面的属性标签里面，console查看时-->
+
+<script>
+    Vue.component('child',{
+        props:{
+            number:Number,
+            //content:String,
+            content:{
+                type:String,
+                //required:false,
+                //default:'default values',
+                validator:function(value){
+                    return (value.length>5)
+                }//检验器，value为传入内容，要求长度大于5，返回true或者false
+            }
+            //content:[String,Number] 意思为字符串或者数字，这就是参数校验
+            //props从数组变为了对象[]变为{},content：String意思必须为字符串（不为字符串网页console会报错）
+            /*content:{
+                type:String,
+                required:ture,//必要 
+                default:'default values'//当required为false时，如果没有content会使用该值
+            //接受一个content的属性，类型必须为string
+            }*/ 
+        },   
+        template:'<div>{{content}} {{number}}</div>'
+    })
+var vm=new Vue({
+    el:'#root',
+    data:{
+    },
+    methods:{
+    }
+})
+</script>
