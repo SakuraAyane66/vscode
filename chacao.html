@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Vue的插槽(slot)</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/vue.js"></script>
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+       <div id="root">
+        <!--<child content='<p>sakura</p>'></child>--><!--原版没用插槽-->
+          <child>
+               <!--向子组件插入了内容-->
+             <h1>Sakura</h1>   
+             <div class="header" slot="header"> herader</div>
+             <div class="footer" slot="footer">  footer</div>
+             <!--<p>Sakura</p>--> 
+          </child>
+       </div>    
+    </body>
+</html> 
+<script>
+    /*
+    插槽,子组件插入插件，slot直接用
+    多DOM使用，不用content
+    子组件所有内容都是插槽内容，slot都会显示，如果在child里面有<p></p>下面调用solt时会显示出来
+    如果给插槽取名slot="xxx"被称为具名插槽，此时的插槽在下面slot直接使用时不会被带入。
+    插槽只有一个，具名插槽可以有多个。
+    */
+    Vue.component('child',{
+        //props:['content'],yi
+         /*template:'<div><p>ayane</p><div v-html="this.content">{{content}}</div></div>',*/
+        data:function(){
+            return{
+            }
+        },
+         //template换行反字符号ES6，`` 感叹号左边
+        template:`  
+                   <div>
+                      <p>hello</p>
+                      <slot>默认值</slot>
+                      <slot name="header"> 也可以设置默认值，如果没有找到内容</slot>
+                      <div>哇哦</div>
+                      <slot name="footer"></slot>
+                   </div> `       
+    })
+    var vm=new Vue({
+        el:'#root',
+        data:{
+
+        }
+    })
+</script>
