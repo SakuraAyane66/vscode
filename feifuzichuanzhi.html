@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>非父子组件传值（用到设计模式）</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <child content="Dell"></child>
+            <child content="Lee"> </child>
+        </div>
+    </body>
+</html>
+<script>
+    /*
+    解决方法
+    1.vue官方数据框架vue-x解决,有一点难度
+    2.发布订阅模式，BUS,称为总线机制，观察者模式
+    */
+    Vue.prototype.bus=new Vue()
+    //在Vue.prototype上挂载了一个bus属性，所有新建的每一个组件上都有该属性。且该属性都指向同一个new vue实例
+    Vue.component('child',{
+        props:{
+            content:String
+        },
+        data:function(){
+            return{
+                selfContent:this.content
+            }
+        },
+        template:'<div @click="handleClick">{{selfContent}}</div>',
+        methods:{
+            handleClick:function(){
+                //重点！！！兄弟传值
+                this.bus.$emit('change',this.selfContent)//因为该实例有bus属性，且vue有$emit属性，向外传值
+               //alert(this.content); 
+            }
+        },
+        //生命周期函数的mounted,
+        mounted:function(){
+            //this作用域发生了变化
+            var this_=this
+            //监听bus触发的事件，监听change
+            this.bus.$on('change',function(msg){
+                //alert(msg)
+                this_.selfContent=msg
+            })
+        }
+    })
+    var vm=new Vue({
+        el:'#root'
+    })
+
+</script>
