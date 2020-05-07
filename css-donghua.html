@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Vue里的css原理</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <script src="js/vue.js"></script>
+    <style>
+      /*
+            通过Css3 transition实现过渡动画
+            在<transiton> </transiton>标签内插入需要过渡的内容，主要vue加载过程中第一帧，第二帧和最后class会发现变化。
+            第二帧v-enter和v-leave-to会消失。
+            
+            如果后面有name，前面style里面v-enter改为name-style。
+                     fade                         fade-enter{}
+            
+
+            */
+      .v-enter,
+      .v-leave-to {
+        opacity: 0;
+      }
+      .v-enter-active,
+      .v-leave-active {
+        transition: opacity 3s;
+      }
+      /*
+            .v-leave-to{
+                opacity: 0;
+            }
+            .v-leave-active{
+                transition: opacity 3s;
+            }*/
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <transition>
+        <!-- <transition name="fade"> -->
+        <div v-if="show">hello world</div>
+      </transition>
+      <button @click="handleClick">change</button>
+    </div>
+  </body>
+</html>
+<script>
+  var vm = new Vue({
+    el: "#root",
+    data: {
+      show: true,
+    },
+    methods: {
+      handleClick: function () {
+        this.show = !this.show;
+      },
+    },
+  });
+
+  /*
+毕业生档案
+全日制
+本科
+计算机与信息科学学院 软件学院
+软件工程
+
+填表时间：2020 5 25
+
+出生年月1998.5.1 蓝色照片
+重庆市渝北区        汉
+共青团员
+学制 4年
+英语4级
+日语（不填级）
+学习及工作经历月份要衔接
+
+2016.9到2020.6等等
+
+证明人 班主任名字 
+
+父亲，母亲
+
+自我鉴定，第一人称本人，我等描述。字数不低于600字 包括思想政治，科研，能力特征，学习能力，取得成就和问题，今后努力的方向。
+班组鉴定：帮她写好。
+2020 5 25
+*/
+</script>
