@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>动态组件和v-once</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <component :is="type"></component> <!-- 动态组件, :is根据后面的内容显示组件 -->
+            <!-- <child-one v-if="type==='child-one'"></child-one>
+            <child-two v-if="type==='child-two'"></child-two> -->
+            <button @click="handleClick">change</button>
+
+        </div>
+    </body>
+</html>
+<script>
+    /*
+    <component :is="xxx"></component> 显示xxx的内容
+
+    template:'<div v-once>child-one</div>'
+    v-once 组件内加上v-once加载后会自动缓存，性能更高
+     */
+    Vue.component('child-one',{
+        template:'<div v-once>child-one</div>'
+    })
+    Vue.component('child-two',{
+        template:'<div v-once>child-two</div>'
+    })
+    var vm=new Vue({
+        el:'#root',
+        data:{
+            type:'child-one'
+        },
+        methods:{
+            handleClick:function(){
+                this.type=(this.type==='child-one'?'child-two':'child-one');
+            }
+        }
+    })
+</script>
