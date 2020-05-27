@@ -30,13 +30,101 @@
             </childone>
             
         </div>
-        
+        </div>
+        <div id="add">
+            <!-- <button onclick="add()">add</button> -->
+            <button>add(虚假)</button>
+          </div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <script>
+           /*  var a=document.getElementById('add');
+            console.log(a)
+            function add(){
+              for(let i=0;i<100;i++){
+                document.write(i+"<br />");
+                //console.log(i);
+              }
+            }
+     function showTop  () { 
+    var scrollTop = document.body.scrollTop;
+　　console.log('滚动条位置：' + scrollTop);
+}
+window.document.body.addEventListener("scroll", showTop); */
+
+function showTop  () {
+    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+　　console.log('滚动条位置：' + scrollTop);
+}
+
+//window.onscroll  = showTop
+
+/* function debounce(fn,delay){
+    let timer = null //借助闭包
+    return function() {
+        if(timer){
+            clearTimeout(timer) //进入该分支语句，说明当前正在一个计时过程中，并且又触发了相同事件。所以要取消当前的计时，重新开始计时
+            timer = setTimeOut(fn,delay) 
+        }else{
+            timer = setTimeOut(fn,delay) // 进入该分支说明当前并没有在计时，那么就开始一个计时
+        }
+    }
+} */
+ var xx=function(){
+     var x='wao'
+ };
+ console.log(typeof(xx));
+//防抖函数
+function debounce(fn,delay){
+    let timer = null //借助闭包
+    return function() {
+        if(timer){
+            clearTimeout(timer) 
+        }
+        timer = setTimeout(fn,delay) // 简化写法
+    }
+}
+//window.onscroll = debounce(showTop,1000)
+//节流
+function throttle(fn,delay){
+    let valid = true
+    return function() {
+       if(!valid){
+           //休息时间 暂不接客
+           return false 
+       }
+       // 工作时间，执行函数并且在间隔期内把状态位设为无效
+        valid = false
+        setTimeout(() => {
+            fn()
+            valid = true;
+        }, delay)
+    }
+}
+window.onscroll = throttle(showTop,1000)
+          </script>
     </body>
 </html>
 <script>
-
     Vue.prototype.bus=new Vue()
-    
     Vue.component('child',{
         props:[],
         template:`<div>
@@ -66,4 +154,72 @@
             name:'松冈祯丞'
         }
     })
+//防抖
+function a(fn,delay){
+    let timer=null;
+    return function(){
+        if(timer){
+            clearTimeout(timer)
+        }
+       timer=setTimeout(fn,delay)
+    }
+}
+//节流
+/*
+function b(fn,delay){
+    //工作时间
+    let valid=true;
+    return function(){
+        //休息状态，返回false
+        if(!valid){
+            return false;
+        }
+        valid=false
+        setTimeout(
+            ()=>{
+                fn()
+                valid=true
+        }
+        ,delay)
+    }
+}
+*/
+/*
+var x="adwafaefa";
+function A(str){
+    if(str.length<0 || str.length>=10000){
+        return -1;
+    }
+    for(let i=0;i<str.length;i++){
+        var b=str.indexOf(str[i],i+1)
+        console.log(b)
+        if(b==-1){
+            return i
+        }
+    }
+    return -1;
+}
+console.log(A(x));
+*/
+
+
+function A(){
+    this.name=" CTL",
+    this.sayhello=function(){
+        return "say hello!"
+    }
+}
+
+function B(){
+    this.email="email",
+    this.name="wa"
+}
+B.prototype=new A()
+A.prototype.try=function(){
+        return "输出"+this.name;
+}
+var a=new A()
+var b=new B()
+
+
 </script>

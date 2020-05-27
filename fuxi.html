@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="js/vue.js"></script>
+    </head>
+    <body>
+    <div id=app>
+        <input v-model="zhi">{{zhi}} 
+        <button v-on:click="shuru">提交</button>
+        <br />
+        <alice :title="item" @delete="shanchu" :content="item" :index="index" v-for="(item,index) in list">       
+        </alice>
+    </div>
+    </body>
+</html>
+<script>
+    Vue.component('alice',{
+        //props:['content','index'], 下面参数校验
+        props:{
+            content:[Number,String],
+            index:Number,
+            test:{
+                type:Object,
+                required:false,
+                default:function(){return {a:223444}},
+                /* validator:function(value){
+                return (value.length>5) */
+             }
+            },
+        template:"<li @click='chuanchu'>{{content}} ++{{this.test}}</li>",
+        methods:{
+            chuanchu:function(){
+                this.$emit('delete',this.index)
+            }
+        }
+    })
+    var vm=new Vue({
+        el:'#app',
+        data(){
+            return {
+                list:['第一行sakura','第二行ayane'],
+                zhi:''
+            }
+        },
+        methods:{
+            shuru:function(){
+                this.list.push(this.zhi)
+            },
+            shanchu:function(res){
+                this.list.splice(res,1)
+            }
+        }
+    })
+</script>

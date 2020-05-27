@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>animate.css库的使用</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="js/vue.js"></script>
+        <style>
+            /*使用keyframe动画*/
+            @keyframes bounce-in {
+                0%{
+                    transform:scale(0);
+                }
+                50%{
+                    transform:scale(1.5);
+                }
+                100%{
+                    transform:scale(1);
+                }
+            }
+            .fade-enter-active{
+                transform-origin: left center;
+                animation: bounce-in 1s;
+            }
+            .fade-leave-active{
+                transform-origin: left center;
+                animation: bounce-in 1s reverse;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <transition name="fade">
+              <!-- <transition name="fade"> -->
+              <div v-if="show">hello world</div>
+            </transition>
+            <button @click="handleClick">change</button>
+          </div>
+    </body>
+</html>
+<script>
+    var vm=new Vue({
+        el:'#root',
+        data:{
+            show:true
+        },
+        methods:{
+            handleClick:function(){
+                this.show=!this.show;
+            }
+        }
+    })
+</script>

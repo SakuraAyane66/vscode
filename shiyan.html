@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+
+    <script src="" async defer></script>
+  </body>
+</html>
+<script>
+  /*两数相加自己
+  var array = [1, 2, 13, 7, 11, 14];
+  var sum = 9;
+  function getA(array, sum) {
+    for (let i = 0; i < array.length; i++) {
+      var a = array[i];
+      //console.log(array[i]);
+      for (let j = 0; j < array.length; j++) {
+        if (i == j) {
+          continue;
+        }
+        if (array[j] == sum - a) {
+          return [i, j];
+        }
+      }
+    }
+    return null;
+  }
+  console.log(Object.prototype.toString.call());
+  console.log(getA(array, sum));
+  */
+ /*两数相加，别人的优化了速度
+ var a=[11,2,33,4]
+ var b=6
+ var twoSum=function(nums,target){
+     let indexMap=[];
+     let loop=0,dis=target;
+     while(loop<nums.length){ //单次循环
+        dis=target-nums[loop];  //记录查找
+        let disIndex=nums.indexOf(dis); //通过indeof找位置
+        if(disIndex>-1&&loop-disIndex){  //找到并且不包括自己
+            return [loop,disIndex];
+        }
+        loop++;
+     }
+     return null;
+ }
+ console.log(twoSum(a,b));
+ */
+/*
+function a(fn,delay){
+    let timer=null;
+    return function(){
+        if(timer){
+            clearTimeout(timer);
+        }
+        timer=setTimeout(fn,delay);
+    }
+}
+
+function v(fn,delay){
+    let vaild=true;
+    return function(){
+        if(!valid){
+            return false;
+        }
+        vaild=false;
+        setTimeout(()=>{
+            fn();
+            valid=true;
+        },delay)
+    }
+}
+*/
+
+/*
+数字反转
+ var numReserve=function(numb){
+    let sign=Math.sign(numb)
+    let res=(Math.abs(numb)+'').split('').reverse().join('')*sign
+    if(res>Math.pow(2,31)-1||res<Math.pow(2,31)*-1)
+    res=0
+    return res
+}
+var s='123,456,789'
+console.log(s.split(""))
+console.log(numReserve(-1231))
+回文
+var huiwen=function(x){
+    var a=numReserve(x);
+    if(x<=0){return false}
+    if(x==a&&x>0){
+      return true
+    }
+    return false
+}
+console.log(huiwen(-22)) */
+/* function getN(num){
+    let a=[];
+    while(num){
+      a.push(num%10);
+      num=parseInt(num/10);
+      console.log(num)
+    }
+    return a.reverse();//顺位显示
+}
+console.log(getN(13241)) */
+/*简单的算字符数
+ a="hello world  123 wa  简单wwad"
+var zifu=function(x){
+  let array=[];
+  var cun;
+  array=x.split(' ')
+
+  for(let i=array.length-1;i>=0;i--){
+      if(array[i]!=''){
+        cun=array[i]
+        break;
+      }
+  }
+  let changdu=cun.split('').length
+  console.log(cun)
+  console.log(changdu)
+  return changdu
+  //console.log(array[2])
+  //console.log(array[2]=='') 
+}
+zifu(a) */
+
+//别人的代码
+/*function isPall(str){
+   var len=str.length;
+   var middle=parseInt(len/2)
+   for(var i=0;i<middle;i++){
+      if(str[i]!=str[len-i-1]){
+        return false
+      }
+      
+   }
+   return true
+}
+function zuichanghuiwen(s){
+var ans='';
+var max=0;
+var len=s.length
+for(var i=0;i<len;i++){
+     for(var r=i+1;r<=len;r++){
+       var temStr=s.substring(i,r)
+       if(isPall(temStr)&&temStr.length>max){
+         ans=s.substring(i,r)
+         max=temStr.length;
+       }
+     }
+}
+console.log(max)
+return ans
+}
+aa='abccb'
+console.log(zuichanghuiwen(aa))*/
+var a="abcd,abc,abcd,abc,abc,abcdd"
+function publicBate(str){
+    var a=str.split(',')
+    var chongfu=[]
+    //var erwei=new Array()
+    var max=0
+    var count=0
+    for(var i=0;i<a.length;i++){
+      if(a[i]==""){return 0}
+      if(a[i].length>max){
+        max=a[i].length
+      }
+    } 
+for(var i=0;i<max;i++){
+    for(var j=0;j<a.length-1;j++){
+      if(a[j][i]==a[j+1][i]){
+          continue;          
+      }else{
+        //return count
+        return chongfu.join('')
+      }
+    }
+    chongfu.push(a[0][count])
+    count++
+   }
+  //return count
+  return chongfu
+}
+
+console.log(publicBate(a))
+
+
+
+</script>

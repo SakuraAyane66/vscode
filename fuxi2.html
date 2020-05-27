@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="./js/vue.js"></script>
+    </head>
+    <body>
+      <div id="app">
+          <!-- <div @delete="des" :content="item" :index="index" v-for="(item,index) in list" :key="index">
+            {{item}}--------{{index+'?'}} </div>-->
+            <Alice @delete="des" :content="item" :index="index" v-for="(item,index) in list" :key="index"></Alice>
+
+            <counter ref="one" @change="jia"></counter>
+            <counter ref="two" @change="jia"></counter>
+            {{he}}
+          </div>
+            
+        <script src="" async defer></script>
+    </body>
+</html>
+<script>
+    Vue.component('counter',{
+        data(){
+            return {
+                number:0
+            }
+        },
+        template:'<div @click="ins">{{this.number}}</div>',
+        methods:{
+            ins:function(){
+                this.number++
+                this.$emit("change")
+               
+            }
+        }
+    })
+    Vue.component('Alice',{
+        props:['content','index'],
+        template:'<li @click="shuchu">{{this.content}}-----{{this.index}}</li>',
+        methods:{
+            shuchu:function(){
+                this.$emit('delete',this.index)
+            }
+        }
+    })
+    var vm=new Vue({
+        el:"#app",
+        data(){
+            return {
+                show:false,
+                list:[1,2,3,4,5,6,7],
+                he:0
+            }
+        },
+        methods:{
+            des:function(res){
+                console.log(res)
+                this.list[res]=res+22;
+            },
+            jia:function(){
+                this.he=this.$refs.one.number+this.$refs.two.number
+            }
+        }
+    })
+</script>
